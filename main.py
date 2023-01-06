@@ -14,6 +14,11 @@ import random
 import mysql.connector as sql
 
 app = Flask(__name__)
+app.config.update(
+    TESTING=True,
+    DEBUG= True,
+    SERVER_NAME="localhost:8080"
+)
 
 
 @app.route('/bruh')
@@ -369,6 +374,7 @@ def settings():
         new_password1 = str(request.form.get('new_password1'))
         new_password2 = str(request.form.get('new_password2'))
         if post_number != "None":
+            print("post number "+str(post_number)+"deleted")
             database.del_post(post_number)
             return redirect('/settings')
         if old_password != "None" or new_password1 != "None" or new_password2 != "None":
@@ -386,4 +392,4 @@ def settings():
 
    
 if __name__ == '__main__':
-    app.run(port='8080')
+    app.run()
